@@ -44,13 +44,14 @@ namespace LibrosBBDD_CRUD_C_
                             break;
                     }
                 } while (opcion != 0);
-                conexion.Close();
+                
                 Console.WriteLine("[INFO-Program]-Ha salido de la aplicación");
             }
             catch (Exception e)
             {
                 Console.WriteLine("[ERROR-Program]-Ha ocurrido al ejecutar la aplicación");
             }
+            conexion.Close();
         }
     }
 }

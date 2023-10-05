@@ -11,18 +11,19 @@ using LibrosBBDD_CRUD_C_.Util;
 namespace LibrosBBDD_CRUD_C_.Servicios
 {
     internal class ConsultasImplementacion:ConsultasInterfaz
-    {
+    {   
         public void MostrarLibros(NpgsqlConnection conexion)
         {
             int opcion;
             long id_libro;
+            Herramientas herr = new Herramientas();
             List<Libros> listaLibrosCrear = new List<Libros>();
             NpgsqlCommand consulta = null;
             NpgsqlDataReader resultado = null;
             ADto aDto = new ADto();
             try
             {
-                consulta = new NpgsqlCommand("SELECT * FROM gbp_almacen.gbp_alm_cat_libros\r\n" + "ORDER BY id_libro ASC ");
+                consulta = new NpgsqlCommand("SELECT * FROM gbp_almacen.gbp_alm_cat_libros\r\n" + "ORDER BY id_libro ASC ",conexion);
                 resultado = consulta.ExecuteReader();
                 listaLibrosCrear = aDto.ResultadosLibros(resultado);
                 consulta.Dispose();
@@ -32,6 +33,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                     Console.WriteLine("[INFO-ConsultaImplementación-MostrarLibros()]-No hay registrado ningún libro.");
                 else
                 {
+                    
                     Console.Write("Introduce 1 para mostrar todos los libros y 2 para mostrar un libro concreto-->");
                     opcion = Convert.ToInt32(Console.ReadLine());
                     if (opcion == 1)
@@ -41,6 +43,8 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                         {
                             Console.WriteLine(listaLibrosCrear[i].toString());
                         }
+                        herr.Pausa();
+                        Console.Clear();
                     }
                     else if (opcion == 2)
                     {
@@ -48,7 +52,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                         {
                             Console.WriteLine(listaLibrosCrear[i].Id_libro + "." + listaLibrosCrear[i].Titulo);
                         }
-                        Console.WriteLine("Introduce el id del libro que quiera mostrar-->");
+                        Console.Write("Introduce el id del libro que quiera mostrar-->");
                         id_libro = long.Parse(Console.ReadLine());
                         Console.WriteLine("---LIBRO SELECCIONADO---");
                         for (int i = 0; i < listaLibrosCrear.Count(); i++)
@@ -56,7 +60,10 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                             if (listaLibrosCrear[i].Id_libro == id_libro)
                                 Console.WriteLine(listaLibrosCrear[i].toString());
                         }
+                        herr.Pausa();
+                        Console.Clear();
                     }
+                    Console.Clear();
                 }
             }
             catch (Exception sqle)
