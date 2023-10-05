@@ -66,7 +66,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                     Console.Clear();
                 }
             }
-            catch (Exception sqle)
+            catch (NpgsqlException sqle)
             {
                 Console.WriteLine("[ERROR-ConsultaImplementacion-MostrarLibros()]-No se ha podido acceder a la base de datos.");
                 conexion.Close();
@@ -78,7 +78,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
         }
         public void CrearLibros(NpgsqlConnection conexion)
         {
-            throw new NotImplementedException();
+
         }
         public void ActualizarLibros(NpgsqlConnection conexion)
         {
