@@ -120,6 +120,7 @@
     <Compile Include="Servicios\ProgramImplementacion.cs" />
     <Compile Include="Servicios\ProgramInterfaz.cs" />
     <Compile Include="Util\ADto.cs" />
+    <Compile Include="Util\Herramientas.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

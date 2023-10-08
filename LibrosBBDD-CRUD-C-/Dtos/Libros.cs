@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Transactions;
 
 namespace LibrosBBDD_CRUD_C_.Dtos
-{
+{   /// <summary>
+/// Clase que actúa como entidad DTO de libros.
+/// </summary>
     internal class Libros
     {
         //Atributos
@@ -20,7 +22,7 @@ namespace LibrosBBDD_CRUD_C_.Dtos
         {
         }
         //Constructores
-        public Libros(long id_libro, string autor, string titulo, string isbn, int edicion)
+        public Libros( long id_libro,string autor, string titulo, string isbn, int edicion)
         {
             this.id_libro = id_libro;
             this.autor = autor;
@@ -28,16 +30,24 @@ namespace LibrosBBDD_CRUD_C_.Dtos
             this.isbn = isbn;
             this.edicion = edicion;
         }
+        public Libros( string autor, string titulo, string isbn, int edicion)
+        {
+            this.autor = autor;
+            this.titulo = titulo;
+            this.isbn = isbn;
+            this.edicion = edicion;
+        }
         //Getters & Setters
-        public long Id_libro { get => id_libro; set => id_libro = value; }
+        public long Id_libro { get => id_libro;}
         public string Autor { get => autor; set => autor = value; }
         public string Titulo { get => titulo; set => titulo = value; }
         public string Isbn { get => isbn; set => isbn = value; }
         public int Edicion { get => edicion; set => edicion = value; }
+        //ToStrig para mostrar datos ordenados de libros.
         public string toString()
         {
-            return "Libros [id_libro=" + id_libro + ", titulo=" + titulo + ", autor=" + autor + ", isbn=" + isbn
-                + ", edicion=" + edicion + "]";
+            string libro=String.Format("Libros [id_libro=" + id_libro + ", titulo=" + titulo + ", autor=" + autor + ", isbn=" + isbn + ", edicion=" + edicion + "]");
+            return libro;
         }
     }
 }

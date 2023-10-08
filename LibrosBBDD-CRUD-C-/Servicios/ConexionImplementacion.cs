@@ -8,23 +8,26 @@ using System.Threading.Tasks;
 
 namespace LibrosBBDD_CRUD_C_.Servicios
 {
+    /// <summary>
+    /// Implementación de la interfaz de conexión para postgresql
+    /// </summary>
     internal class ConexionImplementacion:ConexionInterfaz
     {
         public NpgsqlConnection Conectar()
         {
-            string stringCon = ConfigurationManager.ConnectionStrings["datosConexion"].ConnectionString;
+            string stringCon = ConfigurationManager.ConnectionStrings["datosConexion"].ConnectionString;//obtengo los datos
             NpgsqlConnection conexion = null;
-            if (!string.IsNullOrWhiteSpace(stringCon))
+            if (!string.IsNullOrWhiteSpace(stringCon))//Gi no esta vacío
             {
                 try
                 {
-                    conexion = new NpgsqlConnection(stringCon);
-                    conexion.Open();
+                    conexion = new NpgsqlConnection(stringCon);//Genero la conexion con su string.
+                    conexion.Open();//La abro
                 }
                 catch (NpgsqlException e)
                 {
                     Console.WriteLine("[ERROR-ConexionImplementacion-Conectar()]-No se ha podido conectar con la base de datos");
-                    conexion = null;
+                    conexion = null;//Si da error la declaro null para poder comprobarla después.
                     return conexion;
                 }
             }
