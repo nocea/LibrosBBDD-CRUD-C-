@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibrosBBDD_CRUD_C_.Util;
+using System.Runtime.InteropServices;
 
 namespace LibrosBBDD_CRUD_C_.Servicios
 {
@@ -16,7 +17,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
         {
             int opcion;
             long id_libro;
-            Herramientas herr = new Herramientas();
+            Herramientas hr = new Herramientas();
             List<Libros> listaLibrosCrear = new List<Libros>();
             NpgsqlCommand consulta = null;
             NpgsqlDataReader resultado = null;
@@ -44,8 +45,8 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                         {
                             Console.WriteLine(listaLibrosCrear[i].toString());
                         }
-                        herr.Pausa();
-                        Console.Clear();
+                        hr.Pausa();
+                        
                     }
                     else if (opcion == 2)
                     {
@@ -62,10 +63,8 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                             if (listaLibrosCrear[i].Id_libro == id_libro)
                                 Console.WriteLine(listaLibrosCrear[i].toString());
                         }
-                        herr.Pausa();
-                        Console.Clear();
+                        hr.Pausa();
                     }
-                    Console.Clear();
                 }
             }
             catch (NpgsqlException sqle)
@@ -84,6 +83,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
             String titulo = "", autor = "", isbn = "";
             List<Libros> listaLibrosCrear = new List<Libros>();
             NpgsqlCommand consulta = null;
+            Herramientas hr = new Herramientas();
             Console.Write("Introduzca el numero de libros que quiere crear-->");
             numLibrosCreados = Convert.ToInt32(Console.ReadLine());
             Console.Clear();
@@ -122,6 +122,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                 consulta.Dispose();
                 conexion.Close();
                 Console.WriteLine("[INFO-CrudImplementación-CrearLibros()]-Se han guardado todos los libros en la base de datos");
+                hr.Pausa();
             }
             catch (NpgsqlException sqle)
             {
@@ -133,6 +134,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
             List<Libros> listaLibrosUpdate = new List<Libros>();
             NpgsqlCommand consulta = null;
             NpgsqlDataReader resultado = null;
+            Herramientas hr = new Herramientas();
             ADto aDto = new ADto();
             long id_libro;
             int edicion;
@@ -162,6 +164,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                     isbn = Console.ReadLine();
                     Console.Write("Actualiza la edición-->");
                     edicion = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                     consulta = new NpgsqlCommand("UPDATE gbp_almacen.gbp_alm_cat_libros SET titulo = @titulo,autor= @autor,isbn= @isbn,edicion= @edicion WHERE id_libro = @id_libro;", conexion);
                     consulta.Parameters.AddWithValue("@titulo", titulo);  
                     consulta.Parameters.AddWithValue("@autor", autor);
@@ -172,6 +175,7 @@ namespace LibrosBBDD_CRUD_C_.Servicios
                     consulta.Dispose();
                     conexion.Close();
                     Console.WriteLine("[INFO-CrudImplementación-ActualizarLibros()]-Se han actualizado los datos del libro");
+                    hr.Pausa();
                 }
             }
             catch (NpgsqlException sqle)

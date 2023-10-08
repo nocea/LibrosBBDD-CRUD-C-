@@ -16,10 +16,10 @@ namespace LibrosBBDD_CRUD_C_.Servicios
             Console.WriteLine("3-->Cambiar Datos de Libros");
             Console.WriteLine("4-->Eliminar Libro");
             Console.WriteLine("0-->Salir de la APP");
-            Console.Write("Introduzca una de las siguientes opciones:");
+            Console.Write("Pulse una de las siguientes opciones:");
             do
             {
-                opcion = Convert.ToInt32(Console.ReadLine());
+                opcion = Convert.ToInt32(Console.ReadKey().KeyChar-'0');
                 if (opcion < 0 || opcion > 4)
                     Console.WriteLine("Esa opción no está en el menú");
             } while (opcion < 0 || opcion > 4);

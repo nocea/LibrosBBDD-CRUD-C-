@@ -12,6 +12,7 @@ namespace LibrosBBDD_CRUD_C_.Util
         {
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();
+            Console.Clear();
         }
     }
 }
