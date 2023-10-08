@@ -5,26 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using LibrosBBDD_CRUD_C_.Dtos;
 using LibrosBBDD_CRUD_C_.Servicios;
+using LibrosBBDD_CRUD_C_.Util;
 using Npgsql;
 
 namespace LibrosBBDD_CRUD_C_
 {
+    /// <summary>
+    /// Clase principal que actúa como controlador de la aplicación.
+    /// </summary>
     internal class Program
     {
         static void Main(string[] args)
         {
-
+            //Instancias
             int opcion;
             ProgramInterfaz programInterfaz = new ProgramImplementacion();
             ConexionInterfaz conexionInterfaz = new ConexionImplementacion();
             ConsultasInterfaz crudInterfaz = new ConsultasImplementacion();
+            Herramientas hr = new Herramientas();
             NpgsqlConnection conexion = null;
             try
             {
                 do
-                {
-                    conexion = conexionInterfaz.Conectar();
-                    opcion = programInterfaz.Menu();
+                {   
+                    conexion = conexionInterfaz.Conectar();//Abro la conexion cada vez que entro al menú
+                    opcion = programInterfaz.Menu();//Muestro y pido la opción
                     switch (opcion)
                     {
                         case 1:
@@ -32,24 +37,29 @@ namespace LibrosBBDD_CRUD_C_
                                 crudInterfaz.MostrarLibros(conexion);
                             break;
                         case 2:
-                            crudInterfaz.CrearLibros(conexion);
+                            if (conexion != null)
+                                crudInterfaz.CrearLibros(conexion);
                             break;
                         case 3:
                             if (conexion != null)
                                 crudInterfaz.ActualizarLibros(conexion);
                             break;
                         case 4:
-                            crudInterfaz.BorrarLibros(conexion);
+                            if (conexion != null)
+                                crudInterfaz.BorrarLibros(conexion);
                             break;
                     }
-                } while (opcion != 0);
-                Console.WriteLine("[INFO-Program]-Ha salido de la aplicación");
+                } while (opcion != 0);//Si la opcion=0 saldra del menú y de la aplicación.
+                Console.WriteLine("[INFO-Program-Main()]-Ha salido de la aplicación");
+                conexion.Close();//Cierro la conexión al salir.
+                hr.Pausa();
+
             }
             catch (Exception e)
             {
-                Console.WriteLine("[ERROR-Program]-Ha ocurrido al ejecutar la aplicación");
+                Console.WriteLine("[ERROR-Program-Main()]-Ha ocurrido al ejecutar la aplicación");
+                conexion.Close();
             }
-            conexion.Close();
         }
     }
 }

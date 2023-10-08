@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace LibrosBBDD_CRUD_C_.Util
 {
+    /// <summary>
+    /// Clase para pasar los DAO a DTO
+    /// </summary>
     internal class ADto
     {
+        /// <summary>
+        /// Método que recibe un los datos de un DataReader y devuelve una lista con los datos.
+        /// </summary>
+        /// <param name="resultado"></param>
+        /// <returns></returns>
         public List<Libros> ResultadosLibros(NpgsqlDataReader resultado)
         {
             List<Libros> listaLibros = new List<Libros>();
