@@ -18,7 +18,6 @@ namespace LibrosBBDD_CRUD_C_
             ProgramInterfaz programInterfaz = new ProgramImplementacion();
             ConexionInterfaz conexionInterfaz = new ConexionImplementacion();
             ConsultasInterfaz crudInterfaz = new ConsultasImplementacion();
-            List<Libros> listaLibros = new List<Libros>();
             NpgsqlConnection conexion = null;
             try
             {
@@ -28,23 +27,22 @@ namespace LibrosBBDD_CRUD_C_
                     opcion = programInterfaz.Menu();
                     switch (opcion)
                     {
-                        case 1:// Mostrar todos los libros
+                        case 1:
                             if (conexion != null)
                                 crudInterfaz.MostrarLibros(conexion);
                             break;
                         case 2:
                             crudInterfaz.CrearLibros(conexion);
                             break;
-                        case 3:// Cambiar libros
-                            crudInterfaz.ActualizarLibros(conexion);
+                        case 3:
+                            if (conexion != null)
+                                crudInterfaz.ActualizarLibros(conexion);
                             break;
-                        // Eliminar Libros
                         case 4:
                             crudInterfaz.BorrarLibros(conexion);
                             break;
                     }
                 } while (opcion != 0);
-                
                 Console.WriteLine("[INFO-Program]-Ha salido de la aplicación");
             }
             catch (Exception e)
